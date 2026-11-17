@@ -13,10 +13,14 @@ actual fun currentLanguageTag(): String {
 
 actual fun formatPrice(price: Double, languageTag: String): String {
     val formatter = NSNumberFormatter().apply {
-        numberStyle = NSNumberFormatterCurrencyStyle
-        locale = NSLocale(languageTag)
+        numberStyle = NSNumberFormatterDecimalStyle
+        minimumFractionDigits = 2u
+        maximumFractionDigits = 2u
+        decimalSeparator = "."
+        groupingSeparator = " " // Consistent with Android space grouping
     }
-    return formatter.stringFromNumber(NSNumber(price)) ?: "$price €"
+    val formattedNumber = formatter.stringFromNumber(NSNumber(price)) ?: "$price"
+    return "€$formattedNumber"
 }
 
 actual fun formatDate(date: LocalDate, languageTag: String): String {
@@ -34,4 +38,3 @@ actual fun formatDate(date: LocalDate, languageTag: String): String {
     }
     return formatter.stringFromDate(nsDate)
 }
-

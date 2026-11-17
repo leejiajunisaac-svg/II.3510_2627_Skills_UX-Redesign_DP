@@ -55,6 +55,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.jetbrains.navigation.compose)
             implementation(libs.compose.material.icons.core)
+            implementation(libs.compose.material.icons.extended)
             implementation(libs.kotlinx.serialization.core)
         }
         commonTest.dependencies {
@@ -68,4 +69,19 @@ kotlin {
 
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
+}
+
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+    }
 }
